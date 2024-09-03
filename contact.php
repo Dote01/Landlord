@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Landlord System</title>
+    <title>Contact | Landlord System</title>
     <style>
         /* Include the same styles as the main page */
         body, h1, header, nav, main, section, input, button {
@@ -49,19 +49,55 @@
             text-decoration: underline;
         }
 
-        main {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
+        form {
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            margin: 20px auto;
         }
 
-        p {
-            margin-bottom: 1.5rem;
-            font-size: 1.2em;
+        label {
+            display: block;
+            font-size: 1rem;
             color: #555;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:focus {
+            outline: none;
         }
     </style>
 </head>
@@ -78,17 +114,18 @@
         </nav>
     </header>
 
-    <main>
-        <h1>About Us</h1>
-        <p>
-            Welcome to the Landlord System, a comprehensive solution for managing properties, tenants, and rental agreements. Our platform provides an easy-to-use interface for landlords and tenants alike, helping you streamline property management and improve communication.
-        </p>
-        <p>
-            Our team is dedicated to providing the best possible experience for our users. Whether you are a landlord looking to manage multiple properties or a tenant searching for your next home, the Landlord System is here to help.
-        </p>
-        <p>
-            Thank you for choosing our platform. We are constantly working to improve our services and welcome any feedback you may have.
-        </p>
-    </main>
+    <h1>Contact Us</h1>
+    <form action="send_message.php" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required><br><br>
+
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" required></textarea><br><br>
+
+        <button type="submit">Send Message</button>
+    </form>
 </body>
 </html>

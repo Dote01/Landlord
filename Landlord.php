@@ -12,7 +12,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>landlord system</title>
     <style>
-    /* Reset some default browser styles */
+  /* Reset some default browser styles */
 body, h1, header, nav, main, section, input, button {
     margin: 0;
     padding: 0;
@@ -21,7 +21,7 @@ body, h1, header, nav, main, section, input, button {
 
 /* Basic body styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #f4f4f4;
@@ -33,72 +33,129 @@ h1 {
     text-align: center;
     margin-top: 20px;
     font-size: 2.5em;
-    color: #333;
+    color: #444;
 }
 
 /* Header and navigation styling */
 header {
-    background-color: #333;
+    background-color: #2c3e50;
     color: #fff;
-    padding: 10px 0;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
     font-size: 1em;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
 }
 
 nav a:hover {
-    text-decoration: underline;
-
+    background-color: #34495e;
+    border-radius: 5px;
 }
 
 /* Main section styling */
 main {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     justify-content: center;
-    width:100%
-}
-
-.search-bar {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    max-width: 800px;
     width: 100%;
 }
 
-.search-bar input[type="text"] {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+/* Form styling */
+form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    width: 100%;
 }
 
-.search-bar button {
+fieldset {
+    border: none;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-size: 1.5em;
+    color: #2980b9;
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+input[type="submit"] {
+    background-color: #2980b9;
+    color: #fff;
     padding: 10px 20px;
     border: none;
-    background-color: #333;
-    color: #fff;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
 }
 
-.search-bar button:hover {
-    background-color: #555;
+input[type="submit"]:hover {
+    background-color: #3498db;
 }
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    body {
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
 </style>
 
 </head>

@@ -155,11 +155,11 @@ if(!$result){
             <p>Property Description: <span><?php echo htmlspecialchars($_POST['description']); ?></span></p>
     
 
-        <form action="edit_property.php" method="post">
+        <form action="edit_property.php" method="POST">
                 <input type="hidden" name="property_id" value="<?php echo $property_id; ?>">
                 <input type="submit" value="edit">
             </form>
-            <form action="delete_property.php" method="POST" onsubmit = "return confrim('Are you sure want to delete this property?');">
+            <form action="delete_property.php" method="POST" onsubmit = "return confirm('Are you sure want to delete this property?');">
                 <input type="hidden" name="property_id" value="<?php echo $property_id; ?>">
                 <input type="submit" value="delete">
             </form>

@@ -223,21 +223,21 @@ while ($property = $result->fetch_assoc()){
             <td><?php echo $property['date'] ?></td>
         </tr>
 
-        <!-- <tr>
+        <tr>
             <td><a href="edit_property.php?property_id=<?php echo $property['property_id'] ?>">Edit</a></td>
             <td><a href="delete_property.php?property_id=<?php echo $property['property_id'] ?>">Delete</a></td>
-        </tr> -->
+        </tr>
         </table>
 <?php endforeach   ?>
 <!-- action button -->
-<div class="action-buttons-container">
+<!-- <div class="action-buttons-container">
         <?php if (!empty($fetchedProperties)): ?>
             <div class="action-buttons">
                 <a href="edit_property.php?property_id=<?php echo $property['property_id']; ?>">Edit</a>
                 <a href="delete_property.php?property_id=<?php echo $property['property_id']; ?>">Delete</a>
             </div>
         <?php endif; ?>
-    </div>
+    </div> -->
     
 </body>
 </html>

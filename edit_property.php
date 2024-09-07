@@ -1,137 +1,229 @@
 <?php
-//session control
+// Database connection
+include("Database_connection.php");
 session_start();
 
-//database connection
-include("Database_connection.php");
-
-
-//retrieving property id
-$property_id = $_GET['property_id'];
-
-
-//selecting the current details
-$query = "SELECT * FROM property WHERE property_id = '".$property_id."'";
-$result = $db->query($query);
-
-if(!$result){
-    echo "Error: $db->error";
-    echo "<br> There was an error with fetching the selected property's details";
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    echo "User not logged in. Please <a href='login.php'>log in</a>.";
+    exit();
 }
 
-$fetchedDetails = array();
-while ($detail = $result->fetch_assoc()){
-    $fetchedDetails[] = $detail;
+if($_SERVER['REQUEST_METHOD'] == 'GET'){
+// Retrieve property_id from POST or GET request
+$property_id = $_GET['property_id'] ;
 
-    //details from database
-    $address = $detail['address'];
-    $country = $detail['country'];
-    $city = $detail['city'];
-    $house_number = $detail['house_number'];
-    $price = $detail['price'];
-    $description = $detail['description'];
-    $property_type = $detail['property_type'];
-    $beds = $detail['beds'];
-    $baths = $detail['baths'];
-    $date = $detail['date'];
-    }
+if (!$property_id) {
+    echo "No property ID provided.";
+    exit();
+}
 
+// Retrieve property details for editing
+$query = "SELECT * FROM property WHERE property_id = $property_id";
+$result = $db->query($query);
+$property = $result->fetch_assoc();
 
+if (!$property) {
+    echo "Property not found.";
+    exit();
+}
+}
 
-    if($_SERVER['REQUEST_METHOD'] == "POST"){
-        $post_address = $_POST['address'];
-        $post_country = $_POST['country'];
-        $post_city = $_POST['city'];
-        $post_house_number = $_POST['house_number'];
-        $post_price = $_POST['price'];
-        $post_description = $_POST['description'];
-        $post_property_type = $_POST['property_type'];
-        $post_beds = $_POST['beds'];
-        $post_baths = $_POST['baths'];
-        $post_date = $_POST['date'];
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Update property details
+    $address = $_POST['address'];
+    $city = $_POST['city'];
+    $state = $_POST['state'];
+    $code = $_POST['code'];
+    $type = $_POST['type'];
+    $beds = $_POST['beds'];
+    $baths = $_POST['baths'];
+    $rent = $_POST['rent'];
+    $date = $_POST['date'];
+    $property_id = $_POST['property_id'];
+    $description = $_POST['description'];
 
-    //query to update the details 
-    $update = "UPDATE property SET address = '".$post_address."', country = '".$post_country."', city = '".$post_city."', house_number = '".$post_house_number."',  price = '".$post_price."',  description = '".$post_description."',  property_type = '".$post_property_type."',  beds = '".$post_beds."',  baths = '".$post_baths."',  date = '".$post_date."'";
-    $result = $db->query($update);
-
-    if(!$result){
-        echo "Error: $db->error";
-        echo "There was an error with saving the changes please try again later";
+    $update = "UPDATE property SET address='$address', country='$state', city='$city', house_number='$code', 
+    price='$rent', description='$description', property_type='$type', beds='$beds', baths='$baths', date='$date' WHERE property_id='$property_id'";
+    $update_result = $db->query($update); 
+       if ($update_result) {
+        header("Location: edit_property.php?property_id=" . $property_id);
+        exit();
     } else {
-        header("Location: home.php");
+        echo "Error: " . $stmt->error;
     }
-?>
 
+    $stmt->close();
+}
+
+$db->close();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property| Edit Details</title>
+    <title>Edit Property</title>
+    <style>
+        body, h1, form, input, select, textarea {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding: 0 20px;
+        }
+
+
+        body,
+        h1,
+        header,
+        nav,
+        main,
+        section {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+            padding: 0 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2.5rem;
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <h1>Property| Edit Details</h1>
-<form action ="edit_property.php" method = "POST">
-    <table>
-    <tr>
-            <td>Address</td>
-            <td><input type="text" name="address" value="<?php echo $address ?>"></td>
-        </tr>
-
-        <tr>
-            <td>Country</td>
-            <td><input type="text" name="country" value="<?php echo $country ?>"></td>
-        </tr>
-
-        <tr>
-            <td>City</td>
-            <td><input type="text" name="city" value ="<?php echo $city ?>"></td>
-        </tr>
-
-        <tr>
-            <td>House Number</td>
-            <td><input type="text" name="house_number" value="<?php echo $house_number ?>"></td>
-        </tr>
-
-        <tr>
-            <td>Price</td>
-            <td><input type="text" name="price" value="<?php echo $price ?>"></td>
-        </tr>
-
-        <tr>
-            <td>Description</td>
-            <td><input type="text" name="description" value="<?php echo $description ?>"></td>
-        </tr>
-
-        <tr>
-            <td>Property Type</td>
-            <td><input type="text" name="property_type" value="<?php echo $property_type ?>"></td>
-        </tr>
-
-        <tr>
-            <td>Beds</td>
-            <td><input type="text" name="beds" value="<?php echo $beds ?>"></td>
-        </tr>
-
-        <tr>
-            <td>Baths</td>
-            <td><input type="text" name="baths" value="<?php echo $baths ?>"></td>
-        </tr>
-
-        <tr>
-            <td>Date</td>
-            <td><input type="date" name="date" value="<?php echo $date ?>"></td>
-        </tr>
-
-        <tr>
-            <td>
-            <button type="submit">Save Changes</button>
-            </td>
-
-        </tr>
-    </table>
-</form>
+<header>
+        <nav>
+            <a href="home.php">Home</a>
+            <a href="#">Search</a>
+            <a href="#">Contact</a>
+            <a href="#">Sign In</a>
+            <a href="#">About</a>
+            <a href="register.html">Sign Up</a>
+        </nav>
+    </header>
+    <h1>Edit Property</h1>
+    <form action="edit_property.php" method="POST">
+        <input type="hidden" name="property_id" value="<?php echo htmlspecialchars($property_id); ?>">
+        
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($property['address']); ?>" required>
+        
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" value="<?php echo htmlspecialchars($property['city']); ?>" required>
+        
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" value="<?php echo htmlspecialchars($property['country']); ?>" required>
+        
+        <label for="code">House Number:</label>
+        <input type="text" id="code" name="code" value="<?php echo htmlspecialchars($property['house_number']); ?>" required>
+        
+        <label for="type">Property Type:</label>
+        <input type="text" id="type" name="type" value="<?php echo htmlspecialchars($property['property_type']); ?>" required>
+        
+        <label for="beds">Number of Beds:</label>
+        <input type="number" id="beds" name="beds" value="<?php echo htmlspecialchars($property['beds']); ?>" required>
+        
+        <label for="baths">Number of Baths:</label>
+        <input type="number" id="baths" name="baths" value="<?php echo htmlspecialchars($property['baths']); ?>" required>
+        
+        <label for="rent">Rent Amount:</label>
+        <input type="number" id="rent" name="rent" value="<?php echo htmlspecialchars($property['price']); ?>" required>
+        
+        <label for="date">Availability Date:</label>
+        <input type="date" id="date" name="date" value="<?php echo htmlspecialchars($property['date']); ?>" required>
+        
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"><?php echo htmlspecialchars($property['description']); ?></textarea>
+        
+        <input type="hidden" name="property_id" value ="<?php echo $property['property_id'] ?>">
+        <button type="submit">Update Property</button>
+        <button><a href="home.php">Home</a></button>
+    </form>
 </body>
 </html>

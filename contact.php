@@ -99,6 +99,63 @@
         button:focus {
             outline: none;
         }
+
+        /* Main content styles */
+.contact-section {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-section h1, .contact-section h2 {
+    text-align: center;
+}
+
+.contact-info {
+    margin-bottom: 30px;
+}
+
+.contact-form {
+    margin-top: 20px;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input, .contact-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.contact-form button {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.contact-form button:hover {
+    background-color: #555;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: bottom;
+    bottom: 0;
+    width: 100%;
+}
     </style>
 </head>
 <body>
@@ -113,19 +170,39 @@
             <a href="register.php">Sign Up</a>
         </nav>
     </header>
+    <section class="contact-section">
+            <h1>Contact Us</h1>
+            <p>If you have any questions or would like to learn more about our properties, please feel free to get in touch with us using the form below or the contact details provided.</p>
+            
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                <p><strong>Phone:</strong> (255) 753961345</p>
+                <p><strong>Email:</strong> info@landlordwebsite.com</p>
+                <p><strong>Address:</strong> 123 Main Street, Mbeya, TANZANIA</p>
+            </div>
 
-    <h1>Contact Us</h1>
-    <form action="send_message.php" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required><br><br>
+            <div class="contact-form">
+                <h2>Send Us a Message</h2>
+                <form action="submit_form.php" method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" required><br><br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
 
-        <label for="message">Message:</label>
-        <textarea name="message" id="message" required></textarea><br><br>
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
 
-        <button type="submit">Send Message</button>
-    </form>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Landlord Website. All rights reserved.</p>
+    </footer>
 </body>
 </html>

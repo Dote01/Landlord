@@ -205,7 +205,7 @@
                     </div>
                     <div class="team-member">
                         <img src="image/peter.jpg" alt="Dotte Samwel">
-                        <h3>ahmed mohammed</h3>
+                        <h3>peter masaka</h3>
                         <p>Font-end Developer</p>
                     </div>
                     
